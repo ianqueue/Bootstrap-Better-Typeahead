@@ -96,8 +96,18 @@
                 case 18: // alt
                     break;
 
-                // Moved tab handler to keydown.
-                case 13: // enter
+                case 9: // tab event to capture focus state to go to next form element a11y
+                    if (!this.shown) {
+                        var nextInputSibling = this.$element.parent().next('select, input, textarea');
+                        if ( nextInputSibling.length ) {
+                            nextInputSibling.focus();
+                        } else if ( this.$element.parent().next().children('select, input, textarea').first() ) {
+                            nextInputSibling = this.$element.parent().next().children('select, input, textarea').first();
+                            nextInputSibling.focus();
+                        }
+                    }
+                    break;
+		case 13: // enter
                     if (!this.shown) return;
                     this.select();
                     break;
